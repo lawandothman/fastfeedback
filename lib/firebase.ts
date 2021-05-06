@@ -9,4 +9,4 @@ if (!firebase.default.apps.length) {
   })
 }
 
-export default firebase
+export default firebase.default
