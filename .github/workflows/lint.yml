@@ -1,0 +1,24 @@
+name: Lint CI
+
+on: [push]
+
+jobs:
+   tests:
+    strategy:
+      matrix:
+        node-version: [14.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          yarn config set ignore-engines true
+          yarn --frozen-lockfile
+      - name: Run linting
+        run: yarn lint
