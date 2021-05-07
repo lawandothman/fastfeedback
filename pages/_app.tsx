@@ -1,11 +1,11 @@
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
-import { ProvideAuth } from '../lib/auth'
+import { AuthProvider } from '../lib/auth'
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
-  <ProvideAuth>
+const App = ({ Component, pageProps }: AppProps) => (
+  <AuthProvider>
     <Component {...pageProps} />
-  </ProvideAuth>
+  </AuthProvider>
 )
 
-export default MyApp
+export default App

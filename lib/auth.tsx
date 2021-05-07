@@ -1,45 +1,55 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
+import { User } from '../types'
 import firebase from './firebase'
+import createUser from './firestore'
 
 interface InitialValue {
-  user: firebase.User | null
-  signinWithGithub: () => Promise<firebase.User | null>
-  signout: () => Promise<void>
+  user: User | null
+  signinWithGithub: () => Promise<User | null>
+  signout: () => Promise<User | null>
 }
 
 const AuthContext = createContext<InitialValue | null>(null)
 
+const formatUser = (user: firebase.User) => ({
+  uid: user.uid,
+  email: user.email,
+  name: user.displayName,
+  provider: user.providerData[0]?.providerId,
+})
+
 const useProvideAuth = () => {
-  const [user, setUser] = useState<firebase.User | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   console.log(user)
+
+  const handleUser = (rawUser: firebase.User | null) => {
+    if (rawUser) {
+      const formattedUser = formatUser(rawUser)
+      createUser(formattedUser)
+      setUser(formattedUser)
+      return formattedUser
+    }
+    setUser(null)
+    return null
+  }
 
   const signinWithGithub = () => firebase
     .auth()
     .signInWithPopup(new firebase.auth.GithubAuthProvider())
-    .then((res) => {
-      setUser(res.user)
-      return res.user
-    })
+    .then((res) => handleUser(res.user))
 
   const signout = () => firebase
     .auth()
     .signOut()
-    .then(() => setUser(null))
+    .then(() => handleUser(null))
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((u) => {
-      if (u) {
-        setUser(u)
-      } else {
-        setUser(null)
-      }
-    })
-
+    const unsubscribe = firebase.auth().onAuthStateChanged(handleUser)
     return () => unsubscribe()
-  })
+  }, [])
 
   return {
     user,
@@ -48,7 +58,7 @@ const useProvideAuth = () => {
   }
 }
 
-export const ProvideAuth = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const auth = useProvideAuth()
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
 }
