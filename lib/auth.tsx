@@ -33,9 +33,10 @@ const useProvideAuth = () => {
     if (rawUser) {
       const formattedUser = formatUser(rawUser)
       setUser(formattedUser)
-    } else {
-      setUser(null)
+      return formattedUser
     }
+    setUser(null)
+    return null
   }
 
   const signinWithGithub = () => firebase
