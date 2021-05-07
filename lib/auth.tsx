@@ -18,6 +18,7 @@ const formatUser = (user: firebase.User) => ({
   email: user.email,
   name: user.displayName,
   provider: user.providerData[0]?.providerId,
+  photoUrl: user.photoURL,
 })
 
 const useProvideAuth = () => {
@@ -28,6 +29,7 @@ const useProvideAuth = () => {
   const handleUser = (rawUser: firebase.User | null) => {
     if (rawUser) {
       const formattedUser = formatUser(rawUser)
+
       createUser(formattedUser)
       setUser(formattedUser)
       return formattedUser
