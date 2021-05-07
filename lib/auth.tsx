@@ -1,14 +1,10 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
+import { User } from '../types'
 import firebase from './firebase'
+import createUser from './firestore'
 
-interface User {
-  uid: string
-  email: string | null
-  name: string | null
-  provider: string | undefined
-}
 interface InitialValue {
   user: User | null
   signinWithGithub: () => Promise<User | null>
@@ -32,6 +28,7 @@ const useProvideAuth = () => {
   const handleUser = (rawUser: firebase.User | null) => {
     if (rawUser) {
       const formattedUser = formatUser(rawUser)
+      createUser(formattedUser)
       setUser(formattedUser)
       return formattedUser
     }
