@@ -11,8 +11,8 @@ interface User {
 }
 interface InitialValue {
   user: User | null
-  signinWithGithub: () => Promise<void>
-  signout: () => Promise<void>
+  signinWithGithub: () => Promise<User | null>
+  signout: () => Promise<User | null>
 }
 
 const AuthContext = createContext<InitialValue | null>(null)
