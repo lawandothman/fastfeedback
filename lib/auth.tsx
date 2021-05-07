@@ -18,6 +18,7 @@ const formatUser = (user: firebase.User) => ({
   email: user.email,
   name: user.displayName,
   provider: user.providerData[0]?.providerId,
+  photoUrl: user.photoURL,
 })
 
 const useProvideAuth = () => {
