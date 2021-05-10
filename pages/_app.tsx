@@ -4,7 +4,7 @@ import { AuthProvider } from '@/lib/auth'
 import customTheme from '@/styles/theme'
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <ChakraProvider theme={customTheme}>
+  <ChakraProvider theme={customTheme} resetCSS>
     <AuthProvider>
       <Component {...pageProps} />
     </AuthProvider>
