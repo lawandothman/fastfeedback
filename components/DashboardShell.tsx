@@ -30,8 +30,13 @@ const DashboardShell = ({ children }: { children: ReactNode }) => {
           <Link to='/'>Sites</Link>
         </Stack>
         <Flex alignItems='center'>
-          <Link to='/' mr={4}>Account</Link>
-          <Avatar size='sm' src={auth?.user?.photoUrl} />
+          <Link to='/' mr={4}>
+            Account
+          </Link>
+          <Avatar
+            size='sm'
+            src={auth?.user?.photoUrl ? auth.user.photoUrl : undefined}
+          />
         </Flex>
       </Flex>
 
@@ -45,7 +50,9 @@ const DashboardShell = ({ children }: { children: ReactNode }) => {
         >
           <Breadcrumb>
             <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink color='gray.700' fontSize='sm'>Sites</BreadcrumbLink>
+              <BreadcrumbLink color='gray.700' fontSize='sm'>
+                Sites
+              </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
           <Heading color='black' mb={4}>

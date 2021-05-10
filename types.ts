@@ -3,5 +3,5 @@ export interface User {
   email: string | null
   name: string | null
   provider: string | undefined
-  photoUrl: string | undefined
+  photoUrl: string | null
 }
