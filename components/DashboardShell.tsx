@@ -45,7 +45,7 @@ const DashboardShell = ({ children }: { children: ReactNode }) => {
         >
           <Breadcrumb>
             <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink>Sites</BreadcrumbLink>
+              <BreadcrumbLink color='gray.700' fontSize='sm'>Sites</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
           <Heading color='black' mb={4}>
