@@ -1,8 +1,8 @@
-import { User } from '../types'
+import { ISite, IUser } from '../types'
 import firebase from './firebase'
 
 const firestore = firebase.firestore()
 
-const createUser = (user: User) => firestore.collection('users').doc(user.uid).set({ user }, { merge: true })
+export const createUser = (user: IUser) => firestore.collection('users').doc(user.uid).set({ user }, { merge: true })
 
-export default createUser
+export const createSite = (site: ISite) => firestore.collection('sites').add(site)
