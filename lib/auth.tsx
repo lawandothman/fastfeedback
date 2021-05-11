@@ -1,14 +1,14 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
-import { User } from '../types'
+import { IUser } from '../types'
 import firebase from './firebase'
-import createUser from './firestore'
+import { createUser } from './firestore'
 
 interface InitialValue {
-  user: User | null
-  signinWithGithub: () => Promise<User | null>
-  signout: () => Promise<User | null>
+  user: IUser | null
+  signinWithGithub: () => Promise<IUser | null>
+  signout: () => Promise<IUser | null>
 }
 
 const AuthContext = createContext<InitialValue | null>(null)
@@ -22,7 +22,7 @@ const formatUser = (user: firebase.User) => ({
 })
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
 
   console.log(user)
 
