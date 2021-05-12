@@ -7,19 +7,39 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   FormControl,
   FormLabel,
   Input,
   Button,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react'
 import { ISite } from 'types'
 import { createSite } from '@/lib/firestore'
+import { useAuth } from '@/lib/auth'
 
 const AddSiteModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast()
+  const auth = useAuth()
   const { register, handleSubmit } = useForm<ISite>()
-  const onCreateSite: SubmitHandler<ISite> = (values) => createSite(values)
+
+  const onCreateSite: SubmitHandler<ISite> = ({ site, url }) => {
+    createSite({
+      authorId: auth?.user?.uid,
+      createdAt: new Date().toISOString(),
+      site,
+      url,
+    })
+    toast({
+      title: 'Success!',
+      description: 'We\'ve added your site.',
+      duration: 5000,
+      status: 'success',
+      isClosable: true,
+    })
+    onClose()
+  }
 
   return (
     <>
@@ -42,7 +62,7 @@ const AddSiteModal = () => {
             <FormControl>
               <FormLabel>Name</FormLabel>
               <Input
-                {...register('name', { required: true })}
+                {...register('site', { required: true })}
                 placeholder='My site'
               />
             </FormControl>
@@ -51,7 +71,7 @@ const AddSiteModal = () => {
               <FormLabel>Link</FormLabel>
               <Input
                 placeholder='https://website.com'
-                {...register('link', { required: true })}
+                {...register('url', { required: true })}
               />
             </FormControl>
           </ModalBody>

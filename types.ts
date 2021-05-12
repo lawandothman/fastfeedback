@@ -7,6 +7,8 @@ export interface IUser {
 }
 
 export interface ISite {
-  name: string
-  link: string
+  authorId: string | undefined
+  createdAt: string
+  site: string
+  url: string
 }

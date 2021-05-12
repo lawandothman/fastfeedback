@@ -1,7 +1,7 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
-import { IUser } from '../types'
+import { IUser } from 'types'
 import firebase from './firebase'
 import { createUser } from './firestore'
 
