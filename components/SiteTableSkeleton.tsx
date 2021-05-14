@@ -6,8 +6,8 @@ import {
 const SkeletonRow = ({ width }: { width: string }) => (
   <Box as='tr'>
     {[1, 2, 3, 4].map((x) => (
-      <Td>
-        <Skeleton key={x} height='10px' w={width} my={4} />
+      <Td key={x}>
+        <Skeleton height='10px' w={width} my={4} />
       </Td>
     ))}
   </Box>

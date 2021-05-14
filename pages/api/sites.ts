@@ -8,17 +8,17 @@ export default async (_req: NextApiRequest, res: NextApiResponse) => {
   const snapshot = await db.collection('sites').get()
   snapshot.forEach((doc) => {
     const {
-      authorId, createdAt, site, url,
+      authorId, createdAt, name, url,
     } = doc.data()
 
     sites.push({
       id: doc.id,
       authorId,
       createdAt,
-      site,
+      name,
       url,
     })
   })
 
-  res.status(200).json(sites)
+  res.status(200).json({ sites })
 }

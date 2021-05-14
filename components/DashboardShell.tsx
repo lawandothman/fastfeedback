@@ -13,7 +13,11 @@ import {
 import { useAuth } from '@/lib/auth'
 import Logo from './Logo'
 
-const DashboardShell: React.FC<ReactNode> = ({ children }) => {
+interface Props {
+  children: ReactNode
+}
+
+const DashboardShell: React.FC<Props> = ({ children }) => {
   const auth = useAuth()
 
   return (
