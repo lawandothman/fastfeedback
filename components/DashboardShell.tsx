@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import {
   Link,
   Flex,
@@ -14,11 +14,7 @@ import { useAuth } from '@/lib/auth'
 import Logo from './Logo'
 import AddSiteModal from './AddSiteModal'
 
-interface Props {
-  children: ReactNode
-}
-
-const DashboardShell: React.FC<Props> = ({ children }) => {
+const DashboardShell: React.FC = ({ children }) => {
   const auth = useAuth()
 
   return (

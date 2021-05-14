@@ -6,11 +6,11 @@ import {
   Table, Td, Th, Tr,
 } from './Table'
 
-interface Props {
+type SiteTableProps = {
   sites: ISite[]
 }
 
-const SiteTable:React.FC<Props> = ({ sites }) => (
+const SiteTable:React.FC<SiteTableProps> = ({ sites }) => (
   <Table>
     <thead>
       <Tr>

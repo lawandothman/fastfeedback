@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { mutate } from 'swr'
 import {
@@ -20,11 +20,7 @@ import { ISite } from 'types'
 import { createSite } from '@/lib/firestore'
 import { useAuth } from '@/lib/auth'
 
-interface Props {
-  children: ReactNode
-}
-
-const AddSiteModal: React.FC<Props> = ({ children }) => {
+const AddSiteModal: React.FC = ({ children }) => {
   const toast = useToast()
   const auth = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()

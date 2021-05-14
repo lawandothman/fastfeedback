@@ -5,13 +5,13 @@ import { IUser } from 'types'
 import firebase from './firebase'
 import { createUser } from './firestore'
 
-interface InitialValue {
+interface IAuthContext {
   user: IUser | null
   signinWithGithub: () => Promise<IUser | null>
   signout: () => Promise<IUser | null>
 }
 
-const AuthContext = createContext<InitialValue | null>(null)
+const AuthContext = createContext<IAuthContext | null>(null)
 
 const formatUser = (user: firebase.User) => ({
   uid: user.uid,
