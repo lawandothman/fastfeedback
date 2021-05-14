@@ -24,11 +24,11 @@ const AddSiteModal = () => {
   const auth = useAuth()
   const { register, handleSubmit } = useForm<ISite>()
 
-  const onCreateSite: SubmitHandler<ISite> = ({ site, url }) => {
+  const onCreateSite: SubmitHandler<ISite> = ({ name, url }) => {
     createSite({
       authorId: auth?.user?.uid,
       createdAt: new Date().toISOString(),
-      site,
+      name,
       url,
     })
     toast({
@@ -62,7 +62,7 @@ const AddSiteModal = () => {
             <FormControl>
               <FormLabel>Name</FormLabel>
               <Input
-                {...register('site', { required: true })}
+                {...register('name', { required: true })}
                 placeholder='My site'
               />
             </FormControl>

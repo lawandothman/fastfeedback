@@ -10,6 +10,6 @@ export interface ISite {
   id?: string
   authorId: string | undefined
   createdAt: string
-  site: string
+  name: string
   url: string
 }

@@ -1,67 +1,83 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import {
   Link,
   Flex,
-  Stack,
   Avatar,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   Heading,
+  Box,
+  Button,
 } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import Logo from './Logo'
 
-const DashboardShell = ({ children }: { children: ReactNode }) => {
+interface Props {
+  children: ReactNode
+}
+
+const DashboardShell: React.FC<Props> = ({ children }) => {
   const auth = useAuth()
 
   return (
-    <Flex flexDirection='column'>
-      <Flex
-        backgroundColor='white'
-        justifyContent='space-between'
-        alignItems='center'
-        py={4}
-        px={8}
-      >
-        <Stack spacing={4} isInline align='center'>
-          <Logo color='black' boxSize='24px' />
-          <Link to='/'>Feedback</Link>
-          <Link to='/'>Sites</Link>
-        </Stack>
-        <Flex alignItems='center'>
-          <Link to='/' mr={4}>
-            Account
-          </Link>
-          <Avatar
-            size='sm'
-            src={auth?.user?.photoUrl ? auth.user.photoUrl : undefined}
-          />
+    <Box backgroundColor='gray.100' h='100vh'>
+      <Flex backgroundColor='white' mb={16} w='full'>
+        <Flex
+          justifyContent='space-between'
+          alignItems='center'
+          pt={4}
+          pb={4}
+          maxW='1250px'
+          margin='0 auto'
+          w='full'
+          px={8}
+        >
+          <Flex>
+            <Logo color='black' boxSize='24px' mr={8} />
+            <Link mr={4} to='/'>
+              Sites
+            </Link>
+            <Link to='/'>Feedback</Link>
+          </Flex>
+          <Flex justifyContent='center' alignItems='center'>
+            {auth?.user && (
+            <Button variant='ghost' mr={2} onClick={() => auth?.signout()}>
+              Log Out
+            </Button>
+            )}
+            <Avatar
+              size='sm'
+              src={auth?.user?.photoUrl ? auth.user.photoUrl : undefined}
+            />
+          </Flex>
         </Flex>
       </Flex>
 
-      <Flex backgroundColor='gray.100' p={8} height='100vh'>
-        <Flex
-          flexDirection='column'
-          w='100%'
-          ml='auto'
-          mr='auto'
-          maxWidth='800px'
-        >
-          <Breadcrumb>
-            <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink color='gray.700' fontSize='sm'>
-                Sites
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-          <Heading color='black' mb={4}>
-            Sites
-          </Heading>
-          {children}
+      <Flex margin='0 auto' direction='column' maxW='1250px' px={8}>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink>Sites</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+        <Flex justifyContent='space-between'>
+          <Heading mb={4}>Sites</Heading>
+          <Button
+            backgroundColor='gray.900'
+            color='white'
+            fontWeight='medium'
+            _hover={{ bg: 'gray.700' }}
+            _active={{
+              bg: 'gray.800',
+              transform: 'scale(0.95)',
+            }}
+          >
+            + Add Site
+          </Button>
         </Flex>
+        {children}
       </Flex>
-    </Flex>
+    </Box>
   )
 }
 export default DashboardShell
