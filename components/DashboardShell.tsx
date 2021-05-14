@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import Logo from './Logo'
+import AddSiteModal from './AddSiteModal'
 
 interface Props {
   children: ReactNode
@@ -42,9 +43,9 @@ const DashboardShell: React.FC<Props> = ({ children }) => {
           </Flex>
           <Flex justifyContent='center' alignItems='center'>
             {auth?.user && (
-            <Button variant='ghost' mr={2} onClick={() => auth?.signout()}>
-              Log Out
-            </Button>
+              <Button variant='ghost' mr={2} onClick={() => auth?.signout()}>
+                Log Out
+              </Button>
             )}
             <Avatar
               size='sm'
@@ -62,18 +63,7 @@ const DashboardShell: React.FC<Props> = ({ children }) => {
         </Breadcrumb>
         <Flex justifyContent='space-between'>
           <Heading mb={4}>Sites</Heading>
-          <Button
-            backgroundColor='gray.900'
-            color='white'
-            fontWeight='medium'
-            _hover={{ bg: 'gray.700' }}
-            _active={{
-              bg: 'gray.800',
-              transform: 'scale(0.95)',
-            }}
-          >
-            + Add Site
-          </Button>
+          <AddSiteModal>+ Add Site</AddSiteModal>
         </Flex>
         {children}
       </Flex>
