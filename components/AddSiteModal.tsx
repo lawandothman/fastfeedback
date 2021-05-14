@@ -1,4 +1,6 @@
+import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { mutate } from 'swr'
 import {
   Modal,
   ModalOverlay,
@@ -18,19 +20,21 @@ import { ISite } from 'types'
 import { createSite } from '@/lib/firestore'
 import { useAuth } from '@/lib/auth'
 
-const AddSiteModal = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+const AddSiteModal: React.FC = ({ children }) => {
   const toast = useToast()
   const auth = useAuth()
-  const { register, handleSubmit } = useForm<ISite>()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { register, handleSubmit, reset } = useForm<ISite>()
 
   const onCreateSite: SubmitHandler<ISite> = ({ name, url }) => {
-    createSite({
+    const newSite = {
       authorId: auth?.user?.uid,
       createdAt: new Date().toISOString(),
       name,
       url,
-    })
+    }
+
+    createSite(newSite)
     toast({
       title: 'Success!',
       description: 'We\'ve added your site.',
@@ -38,21 +42,30 @@ const AddSiteModal = () => {
       status: 'success',
       isClosable: true,
     })
+    mutate(
+      '/api/sites',
+      async (data: { sites: ISite[] }) => ({ sites: [...data.sites, newSite] }),
+      false,
+    )
     onClose()
+    reset()
   }
 
   return (
     <>
       <Button
+        backgroundColor='gray.900'
+        color='white'
         fontWeight='medium'
-        maxW='200px'
-        variant='solid'
-        size='md'
+        _hover={{ bg: 'gray.700' }}
+        _active={{
+          bg: 'gray.800',
+          transform: 'scale(0.95)',
+        }}
         onClick={onOpen}
       >
-        Add Your First Site
+        {children}
       </Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent as='form' onSubmit={handleSubmit(onCreateSite)}>

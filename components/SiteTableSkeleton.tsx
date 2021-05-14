@@ -1,9 +1,14 @@
 import { Box, Skeleton } from '@chakra-ui/react'
+import React from 'react'
 import {
   Table, Td, Th, Tr,
 } from './Table'
 
-const SkeletonRow = ({ width }: { width: string }) => (
+type SkeletonRowProps = {
+  width: string
+}
+
+const SkeletonRow:React.FC<SkeletonRowProps> = ({ width }) => (
   <Box as='tr'>
     {[1, 2, 3, 4].map((x) => (
       <Td key={x}>

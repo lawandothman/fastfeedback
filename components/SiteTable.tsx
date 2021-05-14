@@ -6,11 +6,11 @@ import {
   Table, Td, Th, Tr,
 } from './Table'
 
-interface Props {
+type SiteTableProps = {
   sites: ISite[]
 }
 
-const SiteTable:React.FC<Props> = ({ sites }) => (
+const SiteTable:React.FC<SiteTableProps> = ({ sites }) => (
   <Table>
     <thead>
       <Tr>
@@ -23,7 +23,7 @@ const SiteTable:React.FC<Props> = ({ sites }) => (
     </thead>
     <tbody>
       {sites.map((site) => (
-        <Box as='tr' key={site.id}>
+        <Box as='tr' key={site.url}>
           <Td fontWeight='medium'>
             {site.name}
           </Td>
