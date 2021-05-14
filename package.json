@@ -13,7 +13,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "date-fns": "^2.21.3",
-    "firebase": "^8.5.0",
+    "firebase": "^8.6.1",
     "firebase-admin": "^9.8.0",
     "framer-motion": "^4",
     "next": "10.x",
