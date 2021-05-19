@@ -12,7 +12,7 @@ import { createFeedback } from '@/lib/firestore'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const siteId = typeof context.params?.siteId === 'string' ? context.params?.siteId : ''
-  const feedback = await getAllFeedback(siteId)
+  const { feedback } = await getAllFeedback(siteId)
   return {
     props: {
       initialFeedback: feedback,
@@ -21,8 +21,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const sites = await getAllSites()
-  const paths = sites.map((site) => ({
+  const { sites, error } = await getAllSites()
+  if (error) {
+    return error
+  }
+
+  const paths = sites?.map((site) => ({
     params: {
       siteId: site.id,
     },
