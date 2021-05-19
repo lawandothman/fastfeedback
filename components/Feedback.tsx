@@ -4,8 +4,8 @@ import {
 import { format, parseISO } from 'date-fns'
 
 interface FeedbackProps {
-  author: string
-  text: string
+  author?: string | null
+  text?: string
   createdAt: string
 }
 

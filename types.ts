@@ -16,12 +16,12 @@ export interface ISite {
 
 export interface IFeedback {
   id?: string
-  author: string
-  authorId: string
+  author?: string | null
+  authorId?: string
   createdAt: string
-  provider: string
+  provider?: string
   rating: number
   siteId: string
   status: string
-  text: string
+  text?: string
 }
