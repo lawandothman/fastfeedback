@@ -1,24 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import db from '@/lib/firebase-admin'
-import { ISite } from 'types'
+import { getAllSites } from '@/lib/firestore-admin'
 
 export default async (_req: NextApiRequest, res: NextApiResponse) => {
-  const sites: ISite[] = []
+  const { sites, error } = await getAllSites()
 
-  const snapshot = await db.collection('sites').get()
-  snapshot.forEach((doc) => {
-    const {
-      authorId, createdAt, name, url,
-    } = doc.data()
-
-    sites.push({
-      id: doc.id,
-      authorId,
-      createdAt,
-      name,
-      url,
-    })
-  })
+  if (error) {
+    res.status(500).json({ error })
+  }
 
   res.status(200).json({ sites })
 }
