@@ -21,21 +21,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { sites, error } = await getAllSites()
+  const { sites } = await getAllSites()
 
-  if (sites) {
-    const paths = sites.map((site) => ({
-      params: {
-        siteId: site.id,
-      },
-    }))
+  const paths = sites!.map((site) => ({
+    params: {
+      siteId: site.id,
+    },
+  }))
 
-    return {
-      paths,
-      fallback: false,
-    }
+  return {
+    paths,
+    fallback: false,
   }
-  throw new Error(error)
 }
 
 interface SiteFeedbackProps {
