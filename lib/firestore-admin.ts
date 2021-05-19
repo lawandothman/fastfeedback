@@ -1,9 +1,9 @@
-import { IFeedback } from 'types'
+import { compareDesc, parseISO } from 'date-fns'
+import { IFeedback, ISite } from 'types'
 import admin from './firebase-admin'
 
 const firestore = admin.firestore()
 
-// eslint-disable-next-line import/prefer-default-export
 export const getAllFeedback = async (siteId: string) => {
   const snapshot = await firestore
     .collection('feedback')
@@ -15,5 +15,18 @@ export const getAllFeedback = async (siteId: string) => {
   // @ts-ignore
   snapshot.forEach((doc) => feedback.push({ id: doc.id, ...doc.data() }))
 
+  feedback.sort((a, b) => compareDesc(parseISO(a.createdAt), parseISO(b.createdAt)))
+
   return feedback
+}
+
+export const getAllSites = async () => {
+  const snapshot = await firestore.collection('sites').get()
+
+  const sites: ISite[] = []
+
+  // @ts-ignore
+  snapshot.forEach((doc) => sites.push({ id: doc.id, ...doc.data() }))
+
+  return sites
 }
