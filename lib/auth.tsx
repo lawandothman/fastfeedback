@@ -13,7 +13,7 @@ interface IAuthContext {
 
 const AuthContext = createContext<IAuthContext | null>(null)
 
-const formatUser = (user: firebase.User) => ({
+const formatUser = (user: firebase.User): IUser => ({
   uid: user.uid,
   email: user.email,
   name: user.displayName,
@@ -26,12 +26,13 @@ const useProvideAuth = () => {
 
   console.log(user)
 
-  const handleUser = (rawUser: firebase.User | null) => {
+  const handleUser = async (rawUser: firebase.User | null): Promise<IUser | null> => {
     if (rawUser) {
+      const token = await rawUser.getIdToken()
       const formattedUser = formatUser(rawUser)
       createUser(formattedUser)
-      setUser(formattedUser)
-      return formattedUser
+      setUser({ ...formattedUser, token })
+      return { ...formattedUser, token }
     }
     setUser(null)
     return null
