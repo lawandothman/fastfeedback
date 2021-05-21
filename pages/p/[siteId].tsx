@@ -17,6 +17,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       initialFeedback: feedback,
     },
+    revalidate: 1,
   }
 }
 
