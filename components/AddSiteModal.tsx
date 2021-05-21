@@ -43,7 +43,7 @@ const AddSiteModal: React.FC = ({ children }) => {
       isClosable: true,
     })
     mutate(
-      '/api/sites',
+      ['/api/sites', auth?.user?.token],
       async (data: { sites: ISite[] }) => ({ sites: [...data.sites, newSite] }),
       false,
     )
