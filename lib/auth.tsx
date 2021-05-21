@@ -1,6 +1,7 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
+import Cookies from 'js-cookie'
 import { IUser } from 'types'
 import firebase from './firebase'
 import { createUser } from './firestore'
@@ -32,9 +33,11 @@ const useProvideAuth = () => {
       const formattedUser = formatUser(rawUser)
       createUser(formattedUser)
       setUser({ ...formattedUser, token })
+      Cookies.set('fast-feedback-auth', formattedUser, { expires: 1 })
       return { ...formattedUser, token }
     }
     setUser(null)
+    Cookies.remove('fast-feedback-auth')
     return null
   }
 
