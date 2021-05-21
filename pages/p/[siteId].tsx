@@ -22,17 +22,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { sites } = await getAllSites()
+  try {
+    const { sites } = await getAllSites()
 
-  const paths = sites.map((site) => ({
-    params: {
-      siteId: site.id,
-    },
-  }))
+    const paths = sites.map((site) => ({
+      params: {
+        siteId: site.id,
+      },
+    }))
 
-  return {
-    paths,
-    fallback: false,
+    return {
+      paths,
+      fallback: false,
+    }
+  } catch (error) {
+    return {
+      paths: [],
+      fallback: false,
+    }
   }
 }
 
