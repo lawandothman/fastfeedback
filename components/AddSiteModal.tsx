@@ -20,7 +20,7 @@ import { ISite } from 'types'
 import { createSite } from '@/lib/firestore'
 import { useAuth } from '@/lib/auth'
 
-const AddSiteModal: React.FC = ({ children }) => {
+const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
   const toast = useToast()
   const auth = useAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
