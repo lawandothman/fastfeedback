@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Flex, Text } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import Logo from '@/components/Logo'
 
@@ -12,21 +12,40 @@ const Home = () => {
       align='center'
       justify='center'
       h='100vh'
+      maxW='400px'
+      margin='0 auto'
     >
       <Head>
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: `
+              if(document.cookie && document.cookie.includes('fast-feedback-auth')) {
+                window.location.href= '/dashboard'
+              }
+              `,
+          }}
+        />
         <title>Fast Feedback</title>
       </Head>
-      <Logo color='black' boxSize='64px' />
+      <Logo color='black' boxSize='42px' mb={2} />
+      <Text mb={4}>
+        <Text as='span' fontWeight='bold' display='inline'>
+          Fast Feedback
+        </Text>
+        <br />
+        The easiest way to add comments or reviews to your static site.
+      </Text>
       {auth?.user ? (
-        <Button onClick={() => auth?.signout()} type='button'>
-          Sign Out
+        <Button as='a' size='sm' fontWeight='medium' href='/dashboard'>
+          View Dashboard
         </Button>
       ) : (
         <Button
           mt={4}
           size='sm'
+          fontWeight='medium'
           onClick={() => auth?.signinWithGithub()}
-          type='button'
         >
           Sign In
         </Button>

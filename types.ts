@@ -2,8 +2,9 @@ export interface IUser {
   uid: string
   email: string | null
   name: string | null
-  provider: string | undefined
+  provider?: string
   photoUrl: string | null
+  token?: string
 }
 
 export interface ISite {

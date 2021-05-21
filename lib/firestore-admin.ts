@@ -25,16 +25,25 @@ export const getAllFeedback = async (siteId: string) => {
 }
 
 export const getAllSites = async () => {
-  try {
-    const snapshot = await firestore.collection('sites').get()
+  const snapshot = await firestore.collection('sites').get()
+  const sites: ISite[] = []
 
-    const sites: ISite[] = []
+  // @ts-ignore
+  snapshot.forEach((doc) => sites.push({ id: doc.id, ...doc.data() }))
 
-    // @ts-ignore
-    snapshot.forEach((doc) => sites.push({ id: doc.id, ...doc.data() }))
+  return { sites }
+}
 
-    return { sites }
-  } catch (error) {
-    return { error }
-  }
+export const getUserSites = async (userId: string) => {
+  const snapshot = await firestore
+    .collection('sites')
+    .where('authorId', '==', userId)
+    .get()
+
+  const sites: ISite[] = []
+
+  // @ts-ignore
+  snapshot.forEach((doc) => sites.push({ id: doc.id, ...doc.data() }))
+
+  return { sites }
 }
