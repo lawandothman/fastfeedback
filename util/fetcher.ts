@@ -1,5 +1,10 @@
-const fetcher = async (input: RequestInfo, init: RequestInit) => {
-  const res = await fetch(input, init)
+const fetcher = async (url: string, token: string) => {
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: new Headers({ 'Content-Type': 'application/json', token }),
+    credentials: 'same-origin',
+  })
+
   return res.json()
 }
 
