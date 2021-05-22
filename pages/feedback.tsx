@@ -1,11 +1,11 @@
 import useSwr from 'swr'
 import EmptyState from '@/components/EmptyState'
-import SiteTableSkeleton from '@/components/SiteTableSkeleton'
 import DashboardShell from '@/components/DashboardShell'
 import fetcher from '@/util/fetcher'
 import { useAuth } from '@/lib/auth'
 import FeedbackTable from '@/components/FeedbackTable'
 import FeedbackTableHeader from '@/components/FeedbackTableHeader'
+import FeedbackTableSkeleton from '@/components/FeedbackTableSkeleton'
 
 const MyFeedback = () => {
   const auth = useAuth()
@@ -18,7 +18,7 @@ const MyFeedback = () => {
     return (
       <DashboardShell>
         <FeedbackTableHeader />
-        <SiteTableSkeleton />
+        <FeedbackTableSkeleton />
       </DashboardShell>
     )
   }

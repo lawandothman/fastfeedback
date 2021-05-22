@@ -9,6 +9,7 @@ import { createUser } from './firestore'
 interface IAuthContext {
   user: IUser | null
   signinWithGithub: () => Promise<IUser | null>
+  signinWithGoogle: () => Promise<IUser | null>
   signout: () => Promise<IUser | null>
 }
 
@@ -46,6 +47,11 @@ const useProvideAuth = () => {
     .signInWithPopup(new firebase.auth.GithubAuthProvider())
     .then((res) => handleUser(res.user))
 
+  const signinWithGoogle = () => firebase
+    .auth()
+    .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then((res) => handleUser(res.user))
+
   const signout = () => firebase
     .auth()
     .signOut()
@@ -59,6 +65,7 @@ const useProvideAuth = () => {
   return {
     user,
     signinWithGithub,
+    signinWithGoogle,
     signout,
   }
 }
