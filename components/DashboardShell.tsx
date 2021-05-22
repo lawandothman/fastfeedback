@@ -6,7 +6,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
-import Logo from './Logo'
+import { Logo } from './Icons'
 import NextChakraLink from './NextChakraLink'
 
 const DashboardShell: React.FC = ({ children }) => {
