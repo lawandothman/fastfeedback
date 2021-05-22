@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { mutate } from 'swr'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -10,11 +11,35 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons'
+import { deleteFeedback } from '@/lib/firestore'
+import { useAuth } from '@/lib/auth'
+import { IFeedback } from 'types'
 
-const RemoveButton = () => {
+interface RemoveButtonProps {
+  feedbackId?: string
+}
+
+const RemoveButton:React.FC<RemoveButtonProps> = ({ feedbackId }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const onClose = () => setIsOpen(false)
   const cancelRef = useRef<HTMLButtonElement>(null)
+  const auth = useAuth()
+
+  const onClose = () => setIsOpen(false)
+  const onDelete = () => {
+    if (feedbackId) {
+      deleteFeedback(feedbackId)
+      mutate(
+        ['/api/feedback', auth?.user?.token],
+        async (data: { feedback: IFeedback[] }) => ({
+          feedback: data.feedback.filter(
+            (feedback) => feedback.id !== feedbackId,
+          ),
+        }),
+        false,
+      )
+      onClose()
+    }
+  }
 
   return (
     <>
@@ -43,7 +68,7 @@ const RemoveButton = () => {
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={onClose} ml={3}>
+              <Button colorScheme='red' onClick={onDelete} ml={3}>
                 Delete
               </Button>
             </AlertDialogFooter>

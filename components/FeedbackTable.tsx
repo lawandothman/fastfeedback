@@ -36,7 +36,7 @@ const FeedbackTable: React.FC<FeedbackTableProps> = (props) => (
             />
           </Td>
           <Td>
-            <RemoveButton />
+            <RemoveButton feedbackId={feedback.id} />
           </Td>
         </Box>
       ))}

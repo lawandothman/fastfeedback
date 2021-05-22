@@ -8,3 +8,5 @@ export const createUser = (user: IUser) => firestore.collection('users').doc(use
 export const createSite = (site: ISite) => firestore.collection('sites').add(site)
 
 export const createFeedback = (feedback: IFeedback) => firestore.collection('feedback').add(feedback)
+
+export const deleteFeedback = (id: string) => firestore.collection('feedback').doc(id).delete()
