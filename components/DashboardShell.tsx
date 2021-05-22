@@ -3,16 +3,11 @@ import {
   Link,
   Flex,
   Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Heading,
   Box,
   Button,
 } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import Logo from './Logo'
-import AddSiteModal from './AddSiteModal'
 
 const DashboardShell: React.FC = ({ children }) => {
   const auth = useAuth()
@@ -52,15 +47,6 @@ const DashboardShell: React.FC = ({ children }) => {
       </Flex>
 
       <Flex margin='0 auto' direction='column' maxW='1250px' px={8}>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink>Sites</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
-        <Flex justifyContent='space-between'>
-          <Heading mb={4}>Sites</Heading>
-          <AddSiteModal>+ Add Site</AddSiteModal>
-        </Flex>
         {children}
       </Flex>
     </Box>
