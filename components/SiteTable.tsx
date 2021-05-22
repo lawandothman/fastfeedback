@@ -1,17 +1,17 @@
-import { Box, Link } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
 import React from 'react'
 import { ISite } from 'types'
-import NextLink from 'next/link'
 import {
   Table, Td, Th, Tr,
 } from './Table'
+import { NextChakraLink } from './NextChakraLink'
 
 type SiteTableProps = {
   sites: ISite[]
 }
 
-const SiteTable:React.FC<SiteTableProps> = ({ sites }) => (
+const SiteTable: React.FC<SiteTableProps> = ({ sites }) => (
   <Table>
     <thead>
       <Tr>
@@ -19,26 +19,25 @@ const SiteTable:React.FC<SiteTableProps> = ({ sites }) => (
         <Th>Site Link</Th>
         <Th>Feedback Link</Th>
         <Th>Date Added</Th>
-        <Th>{' '}</Th>
+        <Th> </Th>
       </Tr>
     </thead>
     <tbody>
       {sites.map((site) => (
         <Box as='tr' key={site.url}>
-          <Td fontWeight='medium'>
-            {site.name}
-          </Td>
+          <Td fontWeight='medium'>{site.name}</Td>
+          <Td>{site.url}</Td>
           <Td>
-            {site.url}
+            <NextChakraLink
+              href='/p/[siteId]'
+              as={`/p/${site.id}`}
+              color='blue.500'
+              fontWeight='medium'
+            >
+              View Feedback
+            </NextChakraLink>
           </Td>
-          <Td>
-            <NextLink href='/p/[siteId]' as={`/p/${site.id}`} passHref>
-              <Link to='/'>View Feedback</Link>
-            </NextLink>
-          </Td>
-          <Td>
-            {format(parseISO(site.createdAt), 'PPpp')}
-          </Td>
+          <Td>{format(parseISO(site.createdAt), 'PPpp')}</Td>
         </Box>
       ))}
     </tbody>
