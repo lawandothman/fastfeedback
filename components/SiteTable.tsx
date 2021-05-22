@@ -5,7 +5,7 @@ import { ISite } from 'types'
 import {
   Table, Td, Th, Tr,
 } from './Table'
-import { NextChakraLink } from './NextChakraLink'
+import NextChakraLink from './NextChakraLink'
 
 type SiteTableProps = {
   sites: ISite[]

@@ -6,11 +6,11 @@ import {
   LinkProps as ChakraLinkProps,
 } from '@chakra-ui/react'
 
-export type NextChakraLinkProps = PropsWithChildren<
+type NextChakraLinkProps = PropsWithChildren<
 NextLinkProps & Omit<ChakraLinkProps, 'as'>
 >
 
-export const NextChakraLink = ({
+const NextChakraLink = ({
   href,
   as,
   replace,
@@ -32,3 +32,5 @@ export const NextChakraLink = ({
     <ChakraLink {...chakraProps}>{children}</ChakraLink>
   </NextLink>
 )
+
+export default NextChakraLink

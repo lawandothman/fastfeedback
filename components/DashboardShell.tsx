@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Link,
   Flex,
   Avatar,
   Box,
@@ -8,6 +7,7 @@ import {
 } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import Logo from './Logo'
+import NextChakraLink from './NextChakraLink'
 
 const DashboardShell: React.FC = ({ children }) => {
   const auth = useAuth()
@@ -26,11 +26,15 @@ const DashboardShell: React.FC = ({ children }) => {
           px={8}
         >
           <Flex>
-            <Logo color='black' boxSize='24px' mr={8} />
-            <Link mr={4} to='/'>
+            <NextChakraLink href='/'>
+              <Logo color='black' boxSize='24px' mr={8} />
+            </NextChakraLink>
+            <NextChakraLink mr={4} href='/dashboard'>
               Sites
-            </Link>
-            <Link to='/'>Feedback</Link>
+            </NextChakraLink>
+            <NextChakraLink href='/feedback'>
+              Feedback
+            </NextChakraLink>
           </Flex>
           <Flex justifyContent='center' alignItems='center'>
             {auth?.user && (
