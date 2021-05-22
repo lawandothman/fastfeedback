@@ -9,8 +9,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { uid } = await admin.auth().verifyIdToken(req.headers.token as string)
-    const sites = await getUserSites(uid)
-    return res.status(200).json(sites)
+    const { sites } = await getUserSites(uid)
+    return res.status(200).json({ sites })
   } catch (error) {
     return res.status(500).json({ error })
   }
