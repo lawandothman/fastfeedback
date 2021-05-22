@@ -47,3 +47,17 @@ export const getUserSites = async (userId: string) => {
 
   return { sites }
 }
+
+export const getUserFeedback = async (userId: string) => {
+  const snapshot = await firestore
+    .collection('feedback')
+    .where('authorId', '==', userId)
+    .get()
+
+  const feedback: IFeedback[] = []
+
+  // @ts-ignore
+  snapshot.forEach((doc) => feedback.push({ id: doc.id, ...doc.data() }))
+
+  return { feedback }
+}

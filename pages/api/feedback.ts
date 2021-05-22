@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getUserSites } from '@/lib/firestore-admin'
+import { getUserFeedback } from '@/lib/firestore-admin'
 import admin from '@/lib/firebase-admin'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,8 +9,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { uid } = await admin.auth().verifyIdToken(req.headers.token as string)
-    const { sites } = await getUserSites(uid)
-    return res.status(200).json({ sites })
+    const { feedback } = await getUserFeedback(uid)
+    return res.status(200).json({ feedback })
   } catch (error) {
     return res.status(500).json({ error })
   }
