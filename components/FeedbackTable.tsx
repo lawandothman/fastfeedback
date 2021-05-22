@@ -1,12 +1,10 @@
-import {
-  Box, Code, IconButton, Switch,
-} from '@chakra-ui/react'
-import { DeleteIcon } from '@chakra-ui/icons'
+import { Box, Code, Switch } from '@chakra-ui/react'
 import React from 'react'
 import { IFeedback } from 'types'
 import {
   Table, Td, Th, Tr,
 } from './Table'
+import RemoveButton from './RemoveButton'
 
 type FeedbackTableProps = {
   feedback: IFeedback[]
@@ -38,11 +36,7 @@ const FeedbackTable: React.FC<FeedbackTableProps> = (props) => (
             />
           </Td>
           <Td>
-            <IconButton
-              aria-label='Delete feedback'
-              icon={<DeleteIcon />}
-              variant='ghost'
-            />
+            <RemoveButton />
           </Td>
         </Box>
       ))}
