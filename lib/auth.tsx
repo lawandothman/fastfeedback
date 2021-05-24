@@ -1,6 +1,7 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
+import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { IUser } from 'types'
 import firebase from './firebase'
@@ -37,20 +38,27 @@ const useProvideAuth = () => {
       Cookies.set('fast-feedback-auth', formattedUser, { expires: 1 })
       return { ...formattedUser, token }
     }
+    Router.push('/')
     setUser(null)
     Cookies.remove('fast-feedback-auth')
     return null
   }
 
-  const signinWithGithub = () => firebase
-    .auth()
-    .signInWithPopup(new firebase.auth.GithubAuthProvider())
-    .then((res) => handleUser(res.user))
+  const signinWithGithub = () => {
+    Router.push('/dashboard')
+    return firebase
+      .auth()
+      .signInWithPopup(new firebase.auth.GithubAuthProvider())
+      .then((res) => handleUser(res.user))
+  }
 
-  const signinWithGoogle = () => firebase
-    .auth()
-    .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    .then((res) => handleUser(res.user))
+  const signinWithGoogle = () => {
+    Router.push('/dashboard')
+    return firebase
+      .auth()
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((res) => handleUser(res.user))
+  }
 
   const signout = () => firebase
     .auth()
