@@ -34,7 +34,7 @@ const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
       url,
     }
 
-    createSite(newSite)
+    const { id } = createSite(newSite)
     toast({
       title: 'Success!',
       description: 'We\'ve added your site.',
@@ -44,7 +44,9 @@ const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
     })
     mutate(
       ['/api/sites', auth?.user?.token],
-      async (data: { sites: ISite[] }) => ({ sites: [...data.sites, newSite] }),
+      async (data: { sites: ISite[] }) => ({
+        sites: [...data.sites, { id, ...newSite }],
+      }),
       false,
     )
     onClose()
