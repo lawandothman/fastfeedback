@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      fallback: false,
+      fallback: true,
     }
   } catch (error) {
     return {
@@ -66,8 +66,9 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback }) => {
       rating: 4,
       siteId,
     }
-    setAllFeedback([newFeedback, ...allFeedback])
-    createFeedback(newFeedback)
+    inputEl.current!.value = ''
+    const { id } = createFeedback(newFeedback)
+    setAllFeedback([{ id, ...newFeedback }, ...allFeedback])
   }
 
   return (
@@ -82,14 +83,20 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback }) => {
         <FormControl id='comment' my={8}>
           <FormLabel>Comment</FormLabel>
           <Input ref={inputEl} type='comment' id='comment' />
-          <Button mt={2} type='submit' fontWeight='medium'>
+          <Button
+            mt={4}
+            type='submit'
+            fontWeight='medium'
+            isDisabled={router.isFallback}
+          >
             Add Comment
           </Button>
         </FormControl>
       </Box>
-      {allFeedback.map((feedback) => (
-        <Feedback key={feedback.id} {...feedback} />
-      ))}
+      {allFeedback
+        && allFeedback.map((feedback) => (
+          <Feedback key={feedback.id} {...feedback} />
+        ))}
     </Box>
   )
 }

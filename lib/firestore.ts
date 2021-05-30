@@ -11,6 +11,10 @@ export const createSite = (site: ISite) => {
   return siteRef
 }
 
-export const createFeedback = (feedback: IFeedback) => firestore.collection('feedback').add(feedback)
+export const createFeedback = (feedback: IFeedback) => {
+  const feedbackRef = firestore.collection('feedback').doc()
+  feedbackRef.set(feedback)
+  return feedbackRef
+}
 
 export const deleteFeedback = (id: string) => firestore.collection('feedback').doc(id).delete()
