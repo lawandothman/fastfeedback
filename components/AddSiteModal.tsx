@@ -45,7 +45,7 @@ const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
     mutate(
       ['/api/sites', auth?.user?.token],
       async (data: { sites: ISite[] }) => ({
-        sites: [...data.sites, { id, ...newSite }],
+        sites: [{ id, ...newSite }, ...data.sites],
       }),
       false,
     )
