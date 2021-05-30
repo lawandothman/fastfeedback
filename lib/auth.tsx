@@ -29,7 +29,9 @@ const useProvideAuth = () => {
 
   console.log(user)
 
-  const handleUser = async (rawUser: firebase.User | null): Promise<IUser | null> => {
+  const handleUser = async (
+    rawUser: firebase.User | null,
+  ): Promise<IUser | null> => {
     if (rawUser) {
       const token = await rawUser.getIdToken()
       const formattedUser = formatUser(rawUser)
@@ -38,7 +40,6 @@ const useProvideAuth = () => {
       Cookies.set('fast-feedback-auth', formattedUser, { expires: 1 })
       return { ...formattedUser, token }
     }
-    Router.push('/')
     setUser(null)
     Cookies.remove('fast-feedback-auth')
     return null
@@ -60,10 +61,13 @@ const useProvideAuth = () => {
       .then((res) => handleUser(res.user))
   }
 
-  const signout = () => firebase
-    .auth()
-    .signOut()
-    .then(() => handleUser(null))
+  const signout = () => {
+    Router.push('/')
+    return firebase
+      .auth()
+      .signOut()
+      .then(() => handleUser(null))
+  }
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(handleUser)
