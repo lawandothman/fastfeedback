@@ -45,6 +45,8 @@ export const getUserSites = async (userId: string) => {
   // @ts-ignore
   snapshot.forEach((doc) => sites.push({ id: doc.id, ...doc.data() }))
 
+  sites.sort((a, b) => compareDesc(parseISO(a.createdAt), parseISO(b.createdAt)))
+
   return { sites }
 }
 
