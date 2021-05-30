@@ -45,7 +45,7 @@ const useProvideAuth = () => {
     return null
   }
 
-  const signinWithGithub = () => {
+  const signinWithGithub = async () => {
     Router.push('/dashboard')
     return firebase
       .auth()
@@ -53,7 +53,7 @@ const useProvideAuth = () => {
       .then((res) => handleUser(res.user))
   }
 
-  const signinWithGoogle = () => {
+  const signinWithGoogle = async () => {
     Router.push('/dashboard')
     return firebase
       .auth()
@@ -61,7 +61,7 @@ const useProvideAuth = () => {
       .then((res) => handleUser(res.user))
   }
 
-  const signout = () => {
+  const signout = async () => {
     Router.push('/')
     return firebase
       .auth()
