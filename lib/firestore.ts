@@ -4,7 +4,7 @@ import getStripe from './stripe'
 
 const firestore = firebase.firestore()
 
-export const createUser = (user: IUser) => firestore.collection('users').doc(user.uid).set({ user }, { merge: true })
+export const createUser = (user: IUser) => firestore.collection('users').doc(user.uid).set(user, { merge: true })
 
 export const createSite = (site: ISite) => {
   const siteRef = firestore.collection('sites').doc()
