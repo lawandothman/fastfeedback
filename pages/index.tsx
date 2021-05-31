@@ -31,12 +31,13 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ allFeedback }) => {
   const auth = useAuth()
+  const cookie = Cookies.get('fast-feedback-auth')
 
   useEffect(() => {
-    if (Cookies.get('fast-feedback-auth')) {
+    if (cookie) {
       Router.push('/dashboard')
     }
-  }, [])
+  }, [cookie])
 
   return (
     <>
