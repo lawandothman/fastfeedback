@@ -3,6 +3,7 @@ import firebase from './firebase'
 import getStripe from './stripe'
 
 const firestore = firebase.firestore()
+const app = firebase.app()
 
 export const createUser = (user: IUser) => firestore.collection('users').doc(user.uid).set(user, { merge: true })
 
@@ -40,4 +41,12 @@ export const createCheckoutSession = async (uid: string) => {
       stripe?.redirectToCheckout({ sessionId })
     }
   })
+}
+
+export const goToBillingPortal = async () => {
+  const functionRef = app
+    .functions('europe-west2')
+    .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink')
+  const { data } = await functionRef({ returnUrl: window.location.origin })
+  window.location.assign(data.url)
 }
