@@ -7,9 +7,11 @@ import { GitHub, Google, Logo } from '@/components/Icons'
 import { GetStaticProps } from 'next'
 import { getAllFeedback } from '@/lib/firestore-admin'
 import { IFeedback } from 'types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import FeedbackLink from '@/components/FeedbackLink'
 import Feedback from '@/components/Feedback'
+import Cookies from 'js-cookie'
+import Router from 'next/router'
 
 const SITE_ID = '5PkJdYIjbOSatH4B8jos'
 
@@ -29,21 +31,18 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ allFeedback }) => {
   const auth = useAuth()
+
+  useEffect(() => {
+    if (Cookies.get('fast-feedback-auth')) {
+      Router.push('/dashboard')
+    }
+  }, [])
+
   return (
     <>
       <Box bg='gray.100' py={16}>
         <Flex as='main' direction='column' maxW='700px' margin='0 auto'>
           <Head>
-            {/* <script
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{
-                __html: `
-              if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
-                window.location.href = "/dashboard"
-              }
-            `,
-              }}
-            /> */}
             <title>Fast Feedback</title>
           </Head>
           <Logo color='black' boxSize='48px' mb={2} />
