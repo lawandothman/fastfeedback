@@ -1,7 +1,7 @@
 import React, {
   createContext, useContext, useEffect, useState,
 } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { IUser } from 'types'
 import firebase from './firebase'
@@ -26,6 +26,7 @@ const formatUser = (user: firebase.User): IUser => ({
 
 const useProvideAuth = () => {
   const [user, setUser] = useState<IUser | null>(null)
+  const router = useRouter()
 
   console.log(user)
 
@@ -46,7 +47,7 @@ const useProvideAuth = () => {
   }
 
   const signinWithGithub = async () => {
-    Router.push('/dashboard')
+    router.push('/dashboard')
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
@@ -54,7 +55,7 @@ const useProvideAuth = () => {
   }
 
   const signinWithGoogle = async () => {
-    Router.push('/dashboard')
+    router.push('/dashboard')
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
@@ -62,7 +63,7 @@ const useProvideAuth = () => {
   }
 
   const signout = async () => {
-    Router.push('/')
+    router.push('/')
     return firebase
       .auth()
       .signOut()
