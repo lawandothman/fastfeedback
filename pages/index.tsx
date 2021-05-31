@@ -36,9 +36,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
 
   useEffect(() => {
     if (cookie) {
-      console.log('rerouting')
       Router.push('/dashboard')
-      console.log('done')
     }
   }, [cookie])
 

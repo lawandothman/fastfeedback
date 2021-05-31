@@ -41,7 +41,6 @@ const useProvideAuth = () => {
       return { ...formattedUser, token }
     }
     setUser(null)
-    Cookies.remove('fast-feedback-auth')
     return null
   }
 
@@ -63,6 +62,7 @@ const useProvideAuth = () => {
 
   const signout = async () => {
     Router.push('/')
+    Cookies.remove('fast-feedback-auth')
     return firebase
       .auth()
       .signOut()
