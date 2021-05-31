@@ -38,10 +38,10 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: `
-              if(document.cookie && document.cookie.includes('fast-feedback-auth')) {
-                window.location.href= '/dashboard'
-               }
-              `,
+              if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
+                window.location.href = "/dashboard"
+              }
+            `,
               }}
             />
             <title>Fast Feedback</title>
