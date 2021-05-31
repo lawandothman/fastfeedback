@@ -1,11 +1,9 @@
 import React from 'react'
 import {
-  Flex,
-  Avatar,
-  Box,
-  Button,
+  Flex, Avatar, Box, Button,
 } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
+import NextLink from 'next/link'
 import { Logo } from './Icons'
 import NextChakraLink from './NextChakraLink'
 
@@ -14,7 +12,12 @@ const DashboardShell: React.FC = ({ children }) => {
 
   return (
     <Box backgroundColor='gray.100' h='100vh'>
-      <Flex backgroundColor='white' mb={16} w='full'>
+      <Flex
+        backgroundColor='white'
+        mb={16}
+        w='full'
+        borderTop='5px solid #0AF5F4'
+      >
         <Flex
           justifyContent='space-between'
           alignItems='center'
@@ -32,15 +35,15 @@ const DashboardShell: React.FC = ({ children }) => {
             <NextChakraLink mr={4} href='/dashboard'>
               Sites
             </NextChakraLink>
-            <NextChakraLink href='/feedback'>
-              Feedback
-            </NextChakraLink>
+            <NextChakraLink href='/feedback'>Feedback</NextChakraLink>
           </Flex>
           <Flex justifyContent='center' alignItems='center'>
             {auth?.user && (
-              <Button variant='ghost' mr={2} onClick={() => auth?.signout()}>
-                Log Out
-              </Button>
+              <NextLink href='/account' passHref>
+                <Button as='a' variant='ghost' mr={2} fontWeight='normal'>
+                  Account
+                </Button>
+              </NextLink>
             )}
             <Avatar
               size='sm'
