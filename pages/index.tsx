@@ -34,7 +34,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
       <Box bg='gray.100' py={16}>
         <Flex as='main' direction='column' maxW='700px' margin='0 auto'>
           <Head>
-            <script
+            {/* <script
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: `
@@ -43,7 +43,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
               }
             `,
               }}
-            />
+            /> */}
             <title>Fast Feedback</title>
           </Head>
           <Logo color='black' boxSize='48px' mb={2} />
