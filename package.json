@@ -15,7 +15,7 @@
     "@emotion/styled": "^11",
     "@stripe/stripe-js": "^1.15.0",
     "date-fns": "^2.22.1",
-    "firebase": "^8.6.3",
+    "firebase": "^8.6.8",
     "firebase-admin": "^9.9.0",
     "framer-motion": "^4",
     "js-cookie": "^2.2.1",
