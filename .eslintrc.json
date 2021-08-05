@@ -1,38 +1,19 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
   "extends": [
-    "airbnb-typescript"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
+    "next"
   ],
   "rules": {
     "quotes": [
       "error",
       "single"
     ],
-    "@typescript-eslint/semi": [
+    "semi": [
       "error",
       "never"
     ],
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": "off",
-    "jsx-quotes": ["error", "prefer-single"],
-    "react/prop-types": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "react/destructuring-assignment": "off"
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ]
   }
 }

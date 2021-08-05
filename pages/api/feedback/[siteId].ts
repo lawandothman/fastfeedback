@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getAllFeedback } from '@/lib/firestore-admin'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const getSiteFeedback =  async (req: NextApiRequest, res: NextApiResponse) => {
   const { feedback, error } = await getAllFeedback(req.query.siteId as string)
 
   if (error) {
@@ -10,3 +10,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   res.status(200).json({ feedback })
 }
+
+export default getSiteFeedback
