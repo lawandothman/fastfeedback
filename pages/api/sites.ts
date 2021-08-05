@@ -2,13 +2,15 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSites } from '@/lib/firestore-admin'
 import admin from '@/lib/firebase-admin'
 
-const getAllSites=  async (req: NextApiRequest, res: NextApiResponse) => {
+const getAllSites = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.headers.token) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
 
   try {
-    const { uid } = await admin.auth().verifyIdToken(req.headers.token as string)
+    const { uid } = await admin
+      .auth()
+      .verifyIdToken(req.headers.token as string)
     const { sites } = await getUserSites(uid)
     return res.status(200).json({ sites })
   } catch (error) {
