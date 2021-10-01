@@ -13,7 +13,7 @@
     "@chakra-ui/react": "^1.6.7",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@stripe/stripe-js": "^1.17.1",
+    "@stripe/stripe-js": "^1.18.0",
     "date-fns": "^2.22.1",
     "firebase": "^8.7.0",
     "firebase-admin": "^9.11.1",
