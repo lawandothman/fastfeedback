@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import {
   Box, Button, Flex, Stack, Text,
 } from '@chakra-ui/react'
@@ -44,9 +43,6 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
     <>
       <Box bg='gray.100' py={16}>
         <Flex as='main' direction='column' maxW='700px' margin='0 auto'>
-          <Head>
-            <title>Fast Feedback</title>
-          </Head>
           <Logo color='black' boxSize='48px' mb={2} />
           <Text mb={4} fontSize='lg' py={4}>
             <Text as='span' fontWeight='bold' display='inline'>

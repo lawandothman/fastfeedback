@@ -7,12 +7,13 @@ import SiteTable from '@/components/SiteTable'
 import { useAuth } from '@/lib/auth'
 import SiteTableHeader from '@/components/SiteTableHeader'
 import UpgradeEmptyState from '@/components/UpgradeEmptyState'
+import Page from '@/components/Page'
 
 const Dashboard = () => {
   const auth = useAuth()
   const { data } = useSwr(
     auth?.user ? ['/api/sites', auth?.user.token] : null,
-    fetcher,
+    fetcher
   )
   const isPaidAccount = auth?.user?.stripeRole
 
@@ -26,18 +27,28 @@ const Dashboard = () => {
   }
 
   if (data?.sites?.length) {
-    <DashboardShell>
-      <SiteTableHeader />
-      <SiteTable sites={data.sites} />
-    </DashboardShell>
+    return (
+      <DashboardShell>
+        <SiteTableHeader />
+        <SiteTable sites={data.sites} />
+      </DashboardShell>
+    )
   }
 
   return (
     <DashboardShell>
-      <SiteTableHeader isPaidAccount={isPaidAccount}/>
+      <SiteTableHeader isPaidAccount={isPaidAccount} />
       {isPaidAccount ? <EmptyState /> : <UpgradeEmptyState />}
     </DashboardShell>
   )
 }
 
-export default Dashboard
+const DashboradPage = () => {
+  return (
+    <Page name='Dashboard' path='/dashboard'>
+      <Dashboard />
+    </Page>
+  )
+}
+
+export default DashboradPage

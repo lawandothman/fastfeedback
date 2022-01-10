@@ -6,12 +6,13 @@ import { useAuth } from '@/lib/auth'
 import FeedbackTable from '@/components/FeedbackTable'
 import FeedbackTableHeader from '@/components/FeedbackTableHeader'
 import FeedbackTableSkeleton from '@/components/FeedbackTableSkeleton'
+import Page from '@/components/Page'
 
 const MyFeedback = () => {
   const auth = useAuth()
   const { data } = useSwr(
     auth?.user ? ['/api/feedback', auth?.user.token] : null,
-    fetcher,
+    fetcher
   )
 
   if (!data) {
@@ -35,4 +36,12 @@ const MyFeedback = () => {
   )
 }
 
-export default MyFeedback
+const MyFeedbackPage = () => {
+  return (
+    <Page name='My Feedback' path='/feedback'>
+      <MyFeedback />
+    </Page>
+  )
+}
+
+export default MyFeedbackPage

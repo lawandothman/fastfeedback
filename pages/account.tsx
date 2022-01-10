@@ -1,4 +1,5 @@
 import DashboardShell from '@/components/DashboardShell'
+import Page from '@/components/Page'
 import { useAuth } from '@/lib/auth'
 import { goToBillingPortal } from '@/lib/firestore'
 import { Avatar, Badge, Box, Button, Flex, Heading, Stat, StatGroup, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/react'
@@ -95,9 +96,16 @@ const Account = () => {
           </Button>
         </Flex>
       </SettingsTable>
-
     </DashboardShell>
   )
 }
 
-export default Account
+const AccountPage = () => {
+  return (
+    <Page name='Account' path='/account'>
+      <Account/>
+    </Page>
+  )
+}
+
+export default AccountPage
