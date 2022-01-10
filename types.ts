@@ -26,4 +26,5 @@ export interface IFeedback {
   siteId: string
   status: string
   text?: string
+  route?: string
 }

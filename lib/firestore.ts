@@ -23,6 +23,9 @@ export const createFeedback = (feedback: IFeedback) => {
 export const deleteFeedback = (id: string) =>
   firestore.collection('feedback').doc(id).delete()
 
+export const updateFeedback = (id: string, newValues: Partial<IFeedback>) =>
+  firestore.collection('feedback').doc(id).update(newValues)
+
 export const createCheckoutSession = async (uid: string) => {
   const checkoutSessionRef = await firestore
     .collection('users')
