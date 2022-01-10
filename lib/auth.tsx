@@ -16,12 +16,19 @@ interface IAuthContext {
 
 const AuthContext = createContext<IAuthContext | null>(null)
 
-const formatUser = (user: firebase.User): IUser => ({
+const getStripeRole = async () => {
+  await firebase.auth().currentUser?.getIdToken(true)
+  const decodedToken = await firebase.auth().currentUser?.getIdTokenResult()
+  return decodedToken?.claims.stripeRole || 'free'
+}
+
+const formatUser = async (user: firebase.User): Promise<IUser> => ({
   uid: user.uid,
   email: user.email,
   name: user.displayName,
   provider: user.providerData[0]?.providerId,
   photoUrl: user.photoURL,
+  stripeRole: await getStripeRole()
 })
 
 const useProvideAuth = () => {
@@ -34,7 +41,7 @@ const useProvideAuth = () => {
   ): Promise<IUser | null> => {
     if (rawUser) {
       const token = await rawUser.getIdToken()
-      const formattedUser = formatUser(rawUser)
+      const formattedUser = await formatUser(rawUser)
       createUser(formattedUser)
       setUser({ ...formattedUser, token })
       Cookies.set('fast-feedback-auth', formattedUser, { expires: 1 })
@@ -43,6 +50,7 @@ const useProvideAuth = () => {
     setUser(null)
     return null
   }
+
 
   const signinWithGithub = async () => {
     Router.push('/dashboard')

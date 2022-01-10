@@ -5,7 +5,8 @@ import getStripe from './stripe'
 const firestore = firebase.firestore()
 const app = firebase.app()
 
-export const createUser = (user: IUser) => firestore.collection('users').doc(user.uid).set(user, { merge: true })
+export const createUser = (user: IUser) =>
+  firestore.collection('users').doc(user.uid).set(user, { merge: true })
 
 export const createSite = (site: ISite) => {
   const siteRef = firestore.collection('sites').doc()
@@ -19,7 +20,8 @@ export const createFeedback = (feedback: IFeedback) => {
   return feedbackRef
 }
 
-export const deleteFeedback = (id: string) => firestore.collection('feedback').doc(id).delete()
+export const deleteFeedback = (id: string) =>
+  firestore.collection('feedback').doc(id).delete()
 
 export const createCheckoutSession = async (uid: string) => {
   const checkoutSessionRef = await firestore
@@ -47,6 +49,8 @@ export const goToBillingPortal = async () => {
   const functionRef = app
     .functions('europe-west2')
     .httpsCallable('ext-firestore-stripe-subscriptions-createPortalLink')
-  const { data } = await functionRef({ returnUrl: window.location.origin })
+  const { data } = await functionRef({
+    returnUrl: `${window.location.origin}/account`,
+  })
   window.location.assign(data.url)
 }

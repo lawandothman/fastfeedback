@@ -6,6 +6,7 @@ import fetcher from '@/util/fetcher'
 import SiteTable from '@/components/SiteTable'
 import { useAuth } from '@/lib/auth'
 import SiteTableHeader from '@/components/SiteTableHeader'
+import UpgradeEmptyState from '@/components/UpgradeEmptyState'
 
 const Dashboard = () => {
   const auth = useAuth()
@@ -13,6 +14,7 @@ const Dashboard = () => {
     auth?.user ? ['/api/sites', auth?.user.token] : null,
     fetcher,
   )
+  const isPaidAccount = auth?.user?.stripeRole
 
   if (!data) {
     return (
@@ -23,10 +25,17 @@ const Dashboard = () => {
     )
   }
 
-  return (
+  if (data?.sites?.length) {
     <DashboardShell>
       <SiteTableHeader />
-      {data?.sites?.length ? <SiteTable sites={data.sites} /> : <EmptyState />}
+      <SiteTable sites={data.sites} />
+    </DashboardShell>
+  }
+
+  return (
+    <DashboardShell>
+      <SiteTableHeader isPaidAccount={isPaidAccount}/>
+      {isPaidAccount ? <EmptyState /> : <UpgradeEmptyState />}
     </DashboardShell>
   )
 }

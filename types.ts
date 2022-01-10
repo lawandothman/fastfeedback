@@ -5,6 +5,7 @@ export interface IUser {
   provider?: string
   photoUrl: string | null
   token?: string
+  stripeRole: string
 }
 
 export interface ISite {
