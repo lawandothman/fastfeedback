@@ -54,6 +54,7 @@ export const getUserFeedback = async (userId: string) => {
   const snapshot = await firestore
     .collection('feedback')
     .where('authorId', '==', userId)
+    .where('status', 'in', ['pending','active'])
     .get()
 
   const feedback: IFeedback[] = []

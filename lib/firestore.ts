@@ -21,7 +21,7 @@ export const createFeedback = (feedback: IFeedback) => {
 }
 
 export const deleteFeedback = (id: string) =>
-  firestore.collection('feedback').doc(id).delete()
+  firestore.collection('feedback').doc(id).update({ status: 'removed' })
 
 export const updateFeedback = (id: string, newValues: Partial<IFeedback>) =>
   firestore.collection('feedback').doc(id).update(newValues)
