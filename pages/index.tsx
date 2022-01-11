@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import { Logo } from '@/components/Icons'
 import { GetStaticProps } from 'next'
