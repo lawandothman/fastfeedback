@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
 
   useEffect(() => {
     if (cookie) {
-      Router.push('/dashboard')
+      Router.push('/sites')
     }
   }, [cookie])
 
@@ -54,7 +54,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
           {auth?.user ? (
             <Button
               as='a'
-              href='/dashboard'
+              href='/sites'
               mt={4}
               maxW='200px'
               size='lg'

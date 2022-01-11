@@ -32,7 +32,7 @@ const DashboardShell: React.FC = ({ children }) => {
             <NextChakraLink href='/'>
               <Logo color='black' boxSize='24px' mr={8} />
             </NextChakraLink>
-            <NextChakraLink mr={4} href='/dashboard'>
+            <NextChakraLink mr={4} href='/sites'>
               Sites
             </NextChakraLink>
             <NextChakraLink href='/feedback'>Feedback</NextChakraLink>

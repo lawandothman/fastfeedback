@@ -53,7 +53,7 @@ const useProvideAuth = () => {
 
 
   const signinWithGithub = async () => {
-    Router.push('/dashboard')
+    Router.push('/sites')
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
@@ -61,7 +61,7 @@ const useProvideAuth = () => {
   }
 
   const signinWithGoogle = async () => {
-    Router.push('/dashboard')
+    Router.push('/sites')
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
