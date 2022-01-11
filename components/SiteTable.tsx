@@ -2,9 +2,7 @@ import { Box } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
 import React from 'react'
 import { ISite } from 'types'
-import {
-  Table, Td, Th, Tr,
-} from './Table'
+import { Table, Td, Th, Tr } from './Table'
 import NextChakraLink from './NextChakraLink'
 
 type SiteTableProps = {
@@ -27,7 +25,15 @@ const SiteTable: React.FC<SiteTableProps> = ({ sites }) => (
       <tbody>
         {sites.map((site) => (
           <Box as='tr' key={site.id}>
-            <Td fontWeight='medium'>{site.name}</Td>
+            <Td>
+              <NextChakraLink
+                href='site/[siteId]'
+                fontWeight='medium'
+                as={`/site/${site.id}`}
+              >
+                {site.name}
+              </NextChakraLink>
+            </Td>
             <Td>
               <NextChakraLink isExternal href={site.url}>
                 {site.url}
@@ -35,8 +41,8 @@ const SiteTable: React.FC<SiteTableProps> = ({ sites }) => (
             </Td>
             <Td>
               <NextChakraLink
-                href='/p/[siteId]'
-                as={`/p/${site.id}`}
+                href='/feedback/[siteId]'
+                as={`/feedback/${site.id}`}
                 color='blue.500'
                 fontWeight='medium'
               >

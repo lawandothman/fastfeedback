@@ -14,7 +14,7 @@ const FeedbackTableHeader = () => (
       </BreadcrumbItem>
     </Breadcrumb>
     <Flex justifyContent='space-between'>
-      <Heading mb={4}>My Feedback</Heading>
+      <Heading mb={4}>All Feedback</Heading>
     </Flex>
   </>
 )

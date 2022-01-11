@@ -24,6 +24,13 @@ export const getAllFeedback = async (siteId: string) => {
   }
 }
 
+export const getSite = async (siteId: string) => {
+  const doc = await firestore.collection('sites').doc(siteId).get()
+  const site = {id: doc.id, ...doc.data()}
+
+  return { site }
+}
+
 export const getAllSites = async () => {
   const snapshot = await firestore.collection('sites').get()
   const sites: ISite[] = []
