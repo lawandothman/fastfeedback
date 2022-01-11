@@ -9,6 +9,7 @@ import { createUser } from './firestore'
 
 interface IAuthContext {
   user: IUser | null
+  loading: boolean
   signinWithGithub: () => Promise<IUser | null>
   signinWithGoogle: () => Promise<IUser | null>
   signout: () => Promise<IUser | null>
@@ -33,6 +34,7 @@ const formatUser = async (user: firebase.User): Promise<IUser> => ({
 
 const useProvideAuth = () => {
   const [user, setUser] = useState<IUser | null>(null)
+  const [loading, setLoading] = useState(true)
 
   console.log(user)
 
@@ -45,14 +47,18 @@ const useProvideAuth = () => {
       createUser(formattedUser)
       setUser({ ...formattedUser, token })
       Cookies.set('fast-feedback-auth', formattedUser, { expires: 1 })
+      setLoading(false)
       return { ...formattedUser, token }
     }
+    Cookies.remove('fast-feedback-auth')
+    setLoading(false)
     setUser(null)
     return null
   }
 
 
   const signinWithGithub = async () => {
+    setLoading(true)
     Router.push('/sites')
     return firebase
       .auth()
@@ -61,6 +67,7 @@ const useProvideAuth = () => {
   }
 
   const signinWithGoogle = async () => {
+    setLoading(true)
     Router.push('/sites')
     return firebase
       .auth()
@@ -84,6 +91,7 @@ const useProvideAuth = () => {
 
   return {
     user,
+    loading,
     signinWithGithub,
     signinWithGoogle,
     signout,

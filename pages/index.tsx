@@ -1,8 +1,6 @@
-import {
-  Box, Button, Flex, Stack, Text,
-} from '@chakra-ui/react'
+import { Box, Button, Flex, Stack, Text } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
-import { GitHub, Google, Logo } from '@/components/Icons'
+import { Logo } from '@/components/Icons'
 import { GetStaticProps } from 'next'
 import { getAllFeedback } from '@/lib/firestore-admin'
 import { IFeedback } from 'types'
@@ -11,6 +9,7 @@ import FeedbackLink from '@/components/FeedbackLink'
 import Feedback from '@/components/Feedback'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
+import LoginButtons from '@/components/LoginButtons'
 
 const SITE_ID = '5PkJdYIjbOSatH4B8jos'
 
@@ -71,37 +70,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
               View Dashboard
             </Button>
           ) : (
-            <Stack isInline>
-              <Button
-                onClick={() => auth?.signinWithGithub()}
-                backgroundColor='gray.900'
-                color='white'
-                fontWeight='medium'
-                leftIcon={<GitHub />}
-                _hover={{ bg: 'gray.700' }}
-                _active={{
-                  bg: 'gray.800',
-                  transform: 'scale(0.95)',
-                }}
-              >
-                Sign In with GitHub
-              </Button>
-              <Button
-                onClick={() => auth?.signinWithGoogle()}
-                backgroundColor='white'
-                color='gray.900'
-                fontWeight='medium'
-                variant='outline'
-                leftIcon={<Google />}
-                _hover={{ bg: 'gray.100' }}
-                _active={{
-                  bg: 'gray.100',
-                  transform: 'scale(0.95)',
-                }}
-              >
-                Sign In with Google
-              </Button>
-            </Stack>
+            <LoginButtons />
           )}
         </Flex>
       </Box>
