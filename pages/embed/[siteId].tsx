@@ -1,12 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import Feedback from '@/components/Feedback'
 import { getAllFeedback, getAllSites } from '@/lib/firestore-admin'
 import { IFeedback } from 'types'
-import { useAuth } from '@/lib/auth'
 import { useRouter } from 'next/router'
-import { createFeedback } from '@/lib/firestore'
 import FeedbackLink from '@/components/FeedbackLink'
 
 export const getStaticProps: GetStaticProps = async (context) => {
