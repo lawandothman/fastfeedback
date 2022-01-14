@@ -6,6 +6,7 @@ import { getAllFeedback, getAllSites, getSite } from '@/lib/firestore-admin'
 import { IFeedback } from 'types'
 import { useRouter } from 'next/router'
 import FeedbackLink from '@/components/FeedbackLink'
+import 'iframe-resizer/js/iframeResizer.contentWindow'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   console.log(context?.params?.site)
