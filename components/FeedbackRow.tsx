@@ -2,7 +2,7 @@ import { Box, Code, Switch } from '@chakra-ui/react'
 import React from 'react'
 import { IFeedback } from 'types'
 import { Td } from './Table'
-import RemoveButton from './RemoveButton'
+import DeleteFeedbackButton from './DeleteFeedbackButton'
 import { updateFeedback } from '@/lib/firestore'
 import { mutate } from 'swr'
 import { useAuth } from '@/lib/auth'
@@ -36,7 +36,7 @@ const FeedbackRow: React.FC<FeedbackTableProps> = ({ feedback }) => {
         />
       </Td>
       <Td>
-        <RemoveButton feedbackId={id} />
+        <DeleteFeedbackButton feedbackId={id} />
       </Td>
     </Box>
   )

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import Feedback from '@/components/Feedback'
@@ -12,9 +12,8 @@ import LoginButtons from '@/components/LoginButtons'
 import SiteHeader from '@/components/SiteHeader'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const siteId =
-    typeof context.params?.siteId === 'string' ? context.params?.siteId : ''
-  const { feedback } = await getAllFeedback(siteId)
+  const [siteId, route] = context?.params?.site as string[]
+  const { feedback } = await getAllFeedback(siteId, route)
   const {site} = await getSite(siteId)
   return {
     props: {
@@ -31,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = sites.map((site) => ({
       params: {
-        siteId: site.id,
+        site: [site.id!.toString()],
       },
     }))
 
@@ -57,12 +56,18 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback, site }) =>
   const router = useRouter()
   const inputEl = useRef<HTMLInputElement>(null)
   const [allFeedback, setAllFeedback] = useState<IFeedback[]>(initialFeedback)
+  const [siteId, route] = router.query.site as string[]
+
+
+  useEffect(() => {
+    setAllFeedback(initialFeedback)
+  },[initialFeedback])
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    const siteId =
-      typeof router.query.siteId === 'string' ? router.query.siteId : ''
     const newFeedback: IFeedback = {
+      siteId,
+      route: route || '/',
       author: auth?.user?.name,
       authorId: auth?.user?.uid,
       text: inputEl.current?.value,
@@ -70,7 +75,6 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback, site }) =>
       provider: auth?.user?.provider,
       status: 'pending',
       rating: 4,
-      siteId,
     }
     inputEl.current!.value = ''
     const { id } = createFeedback(newFeedback)
@@ -105,7 +109,12 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback, site }) =>
 
   return (
     <DashboardShell>
-      <SiteHeader siteName={site?.name} />
+      <SiteHeader
+        isSiteOwner={true}
+        siteId={site.id}
+        siteName={site.name}
+        route={route}
+      />
       <Box
         display='flex'
         flexDirection='column'
@@ -121,8 +130,12 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback, site }) =>
           </FormControl>
         </Box>
         {allFeedback &&
-          allFeedback.map((feedback) => (
-            <Feedback key={feedback.id} {...feedback} />
+          allFeedback.map((feedback, index) => (
+            <Feedback
+              key={feedback.id}
+              isLast={index === allFeedback.length}
+              {...feedback}
+            />
           ))}
       </Box>
     </DashboardShell>

@@ -19,7 +19,7 @@ interface RemoveButtonProps {
   feedbackId?: string
 }
 
-const RemoveButton:React.FC<RemoveButtonProps> = ({ feedbackId }) => {
+const DeleteFeedbackButton:React.FC<RemoveButtonProps> = ({ feedbackId }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const cancelRef = useRef<HTMLButtonElement>(null)
   const auth = useAuth()
@@ -68,7 +68,7 @@ const RemoveButton:React.FC<RemoveButtonProps> = ({ feedbackId }) => {
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={onDelete} ml={3}>
+              <Button colorScheme='red' fontWeight='bold' onClick={onDelete} ml={3}>
                 Delete
               </Button>
             </AlertDialogFooter>
@@ -79,4 +79,4 @@ const RemoveButton:React.FC<RemoveButtonProps> = ({ feedbackId }) => {
   )
 }
 
-export default RemoveButton
+export default DeleteFeedbackButton

@@ -19,6 +19,7 @@ import {
 import { ISite } from 'types'
 import { createSite } from '@/lib/firestore'
 import { useAuth } from '@/lib/auth'
+import { AddIcon } from '@chakra-ui/icons'
 
 const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
   const toast = useToast()
@@ -64,6 +65,7 @@ const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
           bg: 'gray.800',
           transform: 'scale(0.95)',
         }}
+        leftIcon={<AddIcon />}
         onClick={onOpen}
       >
         {children}
