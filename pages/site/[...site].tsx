@@ -112,7 +112,7 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback, site }) =>
       <SiteHeader
         isSiteOwner={true}
         siteId={site.id}
-        siteName={site.name}
+        site={site}
         route={route}
       />
       <Box

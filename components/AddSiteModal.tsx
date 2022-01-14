@@ -28,11 +28,16 @@ const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
   const { register, handleSubmit, reset } = useForm<ISite>()
 
   const onCreateSite: SubmitHandler<ISite> = ({ name, url }) => {
-    const newSite = {
+    const newSite: ISite = {
       authorId: auth?.user?.uid,
       createdAt: new Date().toISOString(),
       name,
       url,
+      settings: {
+        timestamp: true,
+        icons: true,
+        ratings: false,
+      },
     }
 
     const { id } = createSite(newSite)
@@ -48,7 +53,7 @@ const AddSiteModal: React.FC<React.ReactNode> = ({ children }) => {
       async (data: { sites: ISite[] }) => ({
         sites: [{ id, ...newSite }, ...data.sites],
       }),
-      false,
+      false
     )
     onClose()
     reset()

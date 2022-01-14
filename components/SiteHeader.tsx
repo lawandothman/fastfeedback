@@ -6,16 +6,18 @@ import {
   Flex,
   Heading,
 } from '@chakra-ui/react'
+import { ISite } from 'types'
+import EditSiteModal from './EditSiteModal'
 import NextChakraLink from './NextChakraLink'
 
 interface SiteHeaderProps {
-  siteName?: string
+  site?: ISite
   siteId?: string
   route?: string
   isSiteOwner?: boolean
 }
 
-const SiteHeader = ({ siteName, siteId, route }: SiteHeaderProps) => {
+const SiteHeader = ({ site, siteId, route, isSiteOwner }: SiteHeaderProps) => {
   return (
     <Box mx={4}>
       <Breadcrumb>
@@ -25,10 +27,10 @@ const SiteHeader = ({ siteName, siteId, route }: SiteHeaderProps) => {
           </NextChakraLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <BreadcrumbLink>{siteName || '-'}</BreadcrumbLink>
+          <BreadcrumbLink>{site?.name || '-'}</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      {siteName && route && (
+      {site?.name && route && (
         <BreadcrumbItem>
           <NextChakraLink href={`/sites/${siteId}/${route}`}>
             <BreadcrumbLink as='span'>{route}</BreadcrumbLink>
@@ -36,7 +38,12 @@ const SiteHeader = ({ siteName, siteId, route }: SiteHeaderProps) => {
         </BreadcrumbItem>
       )}
       <Flex justifyContent='space-between'>
-        <Heading mb={8}>{siteName || '-'}</Heading>
+        <Heading mb={8}>{site?.name || '-'}</Heading>
+        {isSiteOwner && siteId &&  (
+          <EditSiteModal siteId={siteId} settings={site?.settings}>
+            Edit Site
+          </EditSiteModal>
+        )}
       </Flex>
     </Box>
   )

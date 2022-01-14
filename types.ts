@@ -14,6 +14,11 @@ export interface ISite {
   createdAt: string
   name: string
   url: string
+  settings: {
+    timestamp: boolean
+    icons: boolean
+    ratings: boolean
+  }
 }
 
 export interface IFeedback {
