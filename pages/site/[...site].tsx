@@ -132,6 +132,7 @@ const SiteFeedback: React.FC<SiteFeedbackProps> = ({ initialFeedback, site }) =>
         {allFeedback &&
           allFeedback.map((feedback, index) => (
             <Feedback
+              settings={site.settings}
               key={feedback.id}
               isLast={index === allFeedback.length}
               {...feedback}

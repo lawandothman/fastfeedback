@@ -17,7 +17,7 @@ import {
   Switch,
 } from '@chakra-ui/react'
 import { ISite } from 'types'
-import {  updateSite } from '@/lib/firestore'
+import { updateSite } from '@/lib/firestore'
 import { useAuth } from '@/lib/auth'
 import { SettingsIcon } from '@chakra-ui/icons'
 
@@ -77,6 +77,7 @@ const EditSiteModal: React.FC<EditSiteModalProps> = ({
           <ModalBody pb={6}>
             <FormControl display='flex' alignItems='center'>
               <Switch
+                key={settings?.timestamp.toString()}
                 defaultChecked={settings?.timestamp}
                 {...register('settings.timestamp')}
                 colorScheme='green'
@@ -87,6 +88,7 @@ const EditSiteModal: React.FC<EditSiteModalProps> = ({
             </FormControl>
             <FormControl display='flex' alignItems='center'>
               <Switch
+                key={settings?.icons.toString()}
                 defaultChecked={settings?.icons}
                 {...register('settings.icons')}
                 colorScheme='green'
@@ -97,6 +99,7 @@ const EditSiteModal: React.FC<EditSiteModalProps> = ({
             </FormControl>
             <FormControl display='flex' alignItems='center'>
               <Switch
+                key={settings?.ratings.toString()}
                 defaultChecked={settings?.ratings}
                 {...register('settings.ratings')}
                 colorScheme='green'

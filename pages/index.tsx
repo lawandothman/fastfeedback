@@ -2,8 +2,8 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { useAuth } from '@/lib/auth'
 import { Logo } from '@/components/Icons'
 import { GetStaticProps } from 'next'
-import { getAllFeedback } from '@/lib/firestore-admin'
-import { IFeedback } from 'types'
+import { getAllFeedback, getSite } from '@/lib/firestore-admin'
+import { IFeedback, ISite } from 'types'
 import React, { useEffect } from 'react'
 import FeedbackLink from '@/components/FeedbackLink'
 import Feedback from '@/components/Feedback'
@@ -15,9 +15,11 @@ const SITE_ID = '5PkJdYIjbOSatH4B8jos'
 
 export const getStaticProps: GetStaticProps = async () => {
   const { feedback } = await getAllFeedback(SITE_ID)
+  const { site } = await getSite(SITE_ID)
   return {
     props: {
       allFeedback: feedback,
+      site,
     },
     revalidate: 1,
   }
@@ -25,9 +27,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
 interface HomeProps {
   allFeedback: IFeedback[] | undefined
+  site: ISite
 }
 
-const Home: React.FC<HomeProps> = ({ allFeedback }) => {
+const Home: React.FC<HomeProps> = ({ allFeedback, site }) => {
   const auth = useAuth()
   const cookie = Cookies.get('fast-feedback-auth')
   console.log(cookie)
@@ -85,6 +88,7 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
         <FeedbackLink siteId={SITE_ID} />
         {allFeedback?.map((feedback, index) => (
           <Feedback
+            settings={site?.settings}
             key={feedback.id}
             isLast={index === allFeedback.length}
             {...feedback}

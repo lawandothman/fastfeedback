@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { Box } from '@chakra-ui/react'
 import Feedback from '@/components/Feedback'
 import { getAllFeedback, getAllSites, getSite } from '@/lib/firestore-admin'
-import { IFeedback } from 'types'
+import { IFeedback, ISite } from 'types'
 import { useRouter } from 'next/router'
 import FeedbackLink from '@/components/FeedbackLink'
 import 'iframe-resizer/js/iframeResizer.contentWindow'
@@ -46,9 +46,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 interface SiteFeedbackProps {
   initialFeedback: IFeedback[]
+  site: ISite
 }
 const EmbeddedFeedbackPage: React.FC<SiteFeedbackProps> = ({
   initialFeedback,
+  site,
 }) => {
   const router = useRouter()
 
@@ -58,6 +60,7 @@ const EmbeddedFeedbackPage: React.FC<SiteFeedbackProps> = ({
       {initialFeedback?.length ? (
         initialFeedback.map((feedback, index) => (
           <Feedback
+            settings={site?.settings}
             key={feedback.id}
             isLast={index === initialFeedback.length}
             {...feedback}
