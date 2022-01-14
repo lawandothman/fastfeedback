@@ -83,8 +83,12 @@ const Home: React.FC<HomeProps> = ({ allFeedback }) => {
         mt={8}
       >
         <FeedbackLink siteId={SITE_ID} />
-        {allFeedback?.map((feedback) => (
-          <Feedback key={feedback.id} {...feedback} />
+        {allFeedback?.map((feedback, index) => (
+          <Feedback
+            key={feedback.id}
+            isLast={index === allFeedback.length}
+            {...feedback}
+          />
         ))}
       </Box>
     </>
