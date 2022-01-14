@@ -1,25 +1,48 @@
-import {
-  Box, Divider, Heading, Text,
-} from '@chakra-ui/react'
+import { Box, Divider, Flex, Heading, Icon, Text } from '@chakra-ui/react'
 import { format, parseISO } from 'date-fns'
+import { GitHub, Google } from './Icons'
 
 interface FeedbackProps {
   author?: string | null
   text?: string
   createdAt: string
+  provider?: string
+  isLast: boolean
 }
 
-const Feedback: React.FC<FeedbackProps> = ({ author, text, createdAt }) => (
-  <Box borderRadius={4} maxWidth='700px' w='full'>
-    <Heading size='sm' as='h3' mb={0} color='gray.900' fontWeight='medium'>
-      {author}
-    </Heading>
-    <Text color='gray.900' mb={4} fontSize='xs'>
-      {format(parseISO(createdAt), 'PPpp')}
-    </Text>
-    <Text color='gray.900'>{text}</Text>
-    <Divider borderColor='gray.200' backgroundColor='gray.200' mt={8} mb={8} />
-  </Box>
-)
+const Feedback: React.FC<FeedbackProps> = ({
+  author,
+  text,
+  createdAt,
+  provider,
+  isLast
+}) => {
+  return (
+    <Box borderRadius={4} maxWidth='700px' w='full'>
+      <Flex align='center'>
+        <Heading size='sm' as='h3' mb={0} color='gray.900' fontWeight='medium'>
+          {author}
+          <Icon
+            as={provider === 'google.com' ? Google : GitHub}
+            boxSize='13px'
+            ml='6px'
+          />
+        </Heading>
+      </Flex>
+      <Text color='gray.900' mb={4} fontSize='xs'>
+        {format(parseISO(createdAt), 'PPpp')}
+      </Text>
+      <Text color='gray.900'>{text}</Text>
+      {!isLast && (
+        <Divider
+          borderColor='gray.200'
+          backgroundColor='gray.200'
+          mt={8}
+          mb={8}
+        />
+      )}
+    </Box>
+  )
+}
 
 export default Feedback

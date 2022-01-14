@@ -14,6 +14,9 @@ export const createSite = (site: ISite) => {
   return siteRef
 }
 
+export const updateSite = (id: string, newValues: Partial<ISite>) =>
+  firestore.collection('sites').doc(id).update(newValues)
+
 export const createFeedback = (feedback: IFeedback) => {
   const feedbackRef = firestore.collection('feedback').doc()
   feedbackRef.set(feedback)
