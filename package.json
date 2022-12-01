@@ -16,7 +16,7 @@
     "@stripe/stripe-js": "^1.26.0",
     "date-fns": "^2.25.0",
     "firebase": "^8.7.0",
-    "firebase-admin": "^10.0.0",
+    "firebase-admin": "^11.3.0",
     "framer-motion": "^6",
     "iframe-resizer": "^4.3.2",
     "js-cookie": "^3.0.1",
