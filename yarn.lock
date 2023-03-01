@@ -1429,10 +1429,10 @@
   resolved "https://registry.yarnpkg.com/@types/iframe-resizer/-/iframe-resizer-3.5.9.tgz#75c4cda33cee5f4da4c7693a0d9ad1ccb0c5ee98"
   integrity sha512-RQUBI75F+uXruB95BFpC/8V8lPgJg4MQ6HxOCtAZYBB/h0FNCfrFfb4I+u2pZJIV7sKeszZbFqy1UnGeBMrvsA==
 
-"@types/js-cookie@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-3.0.0.tgz#6dcc3ab167251ace6964310789d8ea80f732a82c"
-  integrity sha512-GDVwSzwBm4OdQajFCit2UMxskZVcOhs/hYeOvzVW1R+iW6ZOVIBgD+RSrYCtPT0pNBnwNgRaoPPKfoXcwDo+hg==
+"@types/js-cookie@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-3.0.3.tgz#d6bfbbdd0c187354ca555213d1962f6d0691ff4e"
+  integrity sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==
 
 "@types/json5@^0.0.29":
   version "0.0.29"
